@@ -3,8 +3,8 @@
 <template>
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="80px" class="demo-ruleForm">
         <el-form-item label="用户名" prop="name"><el-input v-model="ruleForm.name"></el-input></el-form-item>
-        <el-form-item label="密码" prop="pass"><el-input type="password" v-model="ruleForm.pass" auto-complete="off"></el-input></el-form-item>
-        <el-form-item label="确认密码" prop="checkPass"><el-input type="password" v-model="ruleForm.checkPass" auto-complete="off"></el-input></el-form-item>
+        <el-form-item label="邮箱" prop="email"><el-input v-model="ruleForm.email"></el-input></el-form-item>
+        <el-form-item label="密码" prop="password"><el-input type="password" v-model="ruleForm.password" auto-complete="off"></el-input></el-form-item>
         <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm')">注册</el-button>
             <el-button @click="resetForm('ruleForm')">重置</el-button>
@@ -15,23 +15,14 @@
 <script>
     export default {
         data() {
-            var validatePass = (rule, value, callback) => {
+            var validateEmail = (rule, value, callback) => {
                 if (value === '') {
-                    callback(new Error('请输入密码'));
+                    callback(new Error('请输入您的邮箱'));
                 } else {
-                    if (this.ruleForm.checkPass !== '') {
-                        this.$refs.ruleForm.validateField('checkPass');
+                    let patter = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+                    if (!patter.test(this.ruleForm.email)) {
+                        callback(new Error('请输入正确的邮箱格式'));
                     }
-                    callback();
-                }
-            };
-
-            var validatePass2 = (rule, value, callback) => {
-                if (value === '') {
-                    callback(new Error('请再次输入密码'));
-                } else if (value !== this.ruleForm.pass) {
-                    callback(new Error('两次输入密码不一致!'));
-                } else {
                     callback();
                 }
             };
@@ -40,13 +31,13 @@
                 activeName: 'register',
                 ruleForm: {
                     name: '',
-                    pass: '',
-                    checkPass: ''
+                    email: '',
+                    password: ''
                 },
                 rules: {
-                    name: [{ required: true, message: '请输入您的名称', trigger: 'blur' }, { min: 2, max: 10, message: '长度在 2 到 10 个字符', trigger: 'blur' }],
-                    pass: [{ required: true, validator: validatePass, trigger: 'blur' }],
-                    checkPass: [{ required: true, validator: validatePass2, trigger: 'blur' }]
+                    name: [{ required: true, message: '请输入您的名称', trigger: 'blur' }],
+                    email: [{ required: true, validator: validateEmail, trigger: 'blur' }],
+                    password: [{ required: true, message: '请输入账号密码', trigger: 'blur' }]
                 }
             };
         },
@@ -55,11 +46,7 @@
             submitForm(formName) {
                 this.$refs[formName].validate(valid => {
                     if (valid) {
-                        this.$message({
-                            type: 'success',
-                            message: '注册成功'
-                        });
-                        // this.activeName: 'first',
+                        this.$store.dispatch('UserRegister', this.ruleForm)
                     } else {
                         console.log('error submit!!');
                         return false;
