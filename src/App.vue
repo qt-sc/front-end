@@ -1,17 +1,26 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import {mapState} from 'vuex'
+import axios from 'axios'
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 export default {
   name: 'App',
   components: {
-    HelloWorld
+
+  },
+  methods:{
+
+  },
+  computed:mapState(['progress']),
+  mounted () {
+    axios.get('/api/users',this.ruleForm).then(response => {
+      console.log(response)
+    })
   }
 }
 </script>
