@@ -42,7 +42,7 @@ export default {
     },
     // 登录
     localLogin(data){
-        return axios.post('/users/login',data)
+        return axios.post('/api/user/login/pass',data)
     },
     showProgress({commit},number){
         commit('SHOW_PROGRESS',number)

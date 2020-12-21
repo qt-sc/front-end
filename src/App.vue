@@ -6,8 +6,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import axios from 'axios'
-axios.defaults.headers.post['Content-Type'] = 'application/json';
+
 export default {
   name: 'App',
   components: {
@@ -18,9 +17,7 @@ export default {
   },
   computed:mapState(['progress']),
   mounted () {
-    axios.get('/api/users',this.ruleForm).then(response => {
-      console.log(response)
-    })
+
   }
 }
 </script>

@@ -3,7 +3,7 @@
         <el-tabs v-model="activeName" @tab-click="handleClick" type="border-card">
             <el-tab-pane label="登录" name="login">
                 <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="80px" class="demo-ruleForm">
-                    <el-form-item label="名称" prop="id"><el-input v-model="ruleForm.id"></el-input></el-form-item>
+                    <el-form-item label="名称" prop="name"><el-input v-model="ruleForm.name"></el-input></el-form-item>
 
                     <el-form-item label="密码" prop="password"><el-input type="password" v-model="ruleForm.password" auto-complete="off"></el-input></el-form-item>
 
@@ -46,11 +46,11 @@
                 islogined: false,
                 activeName: 'login',
                 ruleForm: {
-                    id: 'test@fanghc.com',
+                    name: 'test@fanghc.com',
                     password: '123'
                 },
                 rules: {
-                    id: [{ required: true, message: '请输入您的名称', trigger: 'blur' }],
+                    name: [{ required: true, message: '请输入您的名称', trigger: 'blur' }],
                     password: [{ required: true, validator: validatePass, trigger: 'blur' }]
                 }
             };
@@ -68,6 +68,13 @@
             submitForm(formName) {
                 this.$refs[formName].validate(valid => {
                     if (valid) {
+                        // axios.post('/api/user/login/pass',{
+                        //     name: 'test@fanghc.com',
+                        //     password: '123'
+                        // }).then(response => {
+                        //     console.log(response)
+                        // })
+
                         this.$store.dispatch('UserLogin', this.ruleForm)
                     } else {
                         console.log('error submit!!');
