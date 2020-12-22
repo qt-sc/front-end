@@ -1,98 +1,69 @@
 <template>
-    <div class="login">
-        <el-tabs v-model="activeName" @tab-click="handleClick" type="border-card">
-            <el-tab-pane label="登录" name="login">
-                <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="80px" class="demo-ruleForm">
-                    <el-form-item label="名称" prop="name"><el-input v-model="ruleForm.name"></el-input></el-form-item>
-
-                    <el-form-item label="密码" prop="password"><el-input type="password" v-model="ruleForm.password" auto-complete="off"></el-input></el-form-item>
-
-                    <el-form-item>
-                        <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
-
-                        <el-button @click="resetForm('ruleForm')">重置</el-button>
-                    </el-form-item>
-                </el-form>
-            </el-tab-pane>
-
-            <el-tab-pane label="注册" name="register">
-                <register></register>
-            </el-tab-pane>
-        </el-tabs>
+    <div class="container">
+        <el-form class="login_form" :model="user" :rules="rules2" ref="user" label-position="left" label-width="0px" v-loading="loadingflag" element-loading-text="页面跳转中">
+            <h3 class="title">欢迎登录</h3>
+            <el-form-item prop="account">
+                <el-input type="text" v-model="user.account" auto-complete="off" placeholder="账号" @change="changeFlag"></el-input>
+            </el-form-item>
+            <el-form-item prop="checkPass">
+                <el-input type="password" v-model="user.checkPass" auto-complete="off" placeholder="密码"></el-input>
+            </el-form-item>
+            <el-form-item style="width:100%;">
+                <el-button class="login_button" type="primary" style="width:40%;" @click="handleSubmit">登录</el-button>
+                <el-button class="login_button" type="primary" style="width:40%;" @click="toReg">注册</el-button>
+            </el-form-item>
+        </el-form>
     </div>
 </template>
 
 <script>
-    import register from '@/components/Register'
-    import axios from 'axios'
-
-    axios.defaults.headers.post['Content-Type'] = 'application/json';
-
     export default {
         data() {
-            var validatePass = (rule, value, callback) => {
-                if (value === '') {
-                    callback(new Error('请输入密码'));
-                } else {
-                    if (this.ruleForm.checkPass !== '') {
-                        this.$refs.ruleForm.validateField('checkPass');
-                    }
-
-                    callback();
-                }
-            };
-
+            //自定义验证函数
+            // 返回的数据
             return {
-                islogined: false,
-                activeName: 'login',
-                ruleForm: {
-                    name: 'test@fanghc.com',
-                    password: '123'
+                logining: false,
+                user: {
+                    account: '',
+                    checkPass: '',
                 },
-                rules: {
-                    name: [{ required: true, message: '请输入您的名称', trigger: 'blur' }],
-                    password: [{ required: true, validator: validatePass, trigger: 'blur' }]
-                }
+                rules2: {
+                    account: [
+                        { required:true,message:"请输入你的账号", trigger: 'blur' },
+                    ],
+                    checkPass: [
+                        { required: true, message: '请输入密码', trigger: 'blur' },
+                    ],
+                },
+                errorMessage:false,
+                loadingflag:false
             };
         },
-
         methods: {
-            //选项卡切换
-            // eslint-disable-next-line no-unused-vars
-            handleClick(tab, event) {},
-            //重置表单
-            resetForm(formName) {
-                this.$refs[formName].resetFields();
-            },
-            //提交表单
-            submitForm(formName) {
-                this.$refs[formName].validate(valid => {
+            handleSubmit() {
+                this.$refs.user.validate((valid) => {
                     if (valid) {
-                        // axios.post('/api/user/login/pass',{
-                        //     name: 'test@fanghc.com',
-                        //     password: '123'
-                        // }).then(response => {
-                        //     console.log(response)
-                        // })
-
-                        this.$store.dispatch('UserLogin', this.ruleForm)
+                        this.$store.dispatch('UserLogin',this.user);
                     } else {
+                        // 这个else只是防止什么都没填写
                         console.log('error submit!!');
                         return false;
                     }
                 });
+
+            },
+            changeFlag(){
+                this.errorMessage = false
+            },
+            toReg(){
+                this.$router.push({path:'/reg'})
             }
-        },
-        components: {
-            register
-        },
-    };
+        }
+    }
 </script>
 
-
-<style lang="scss">
-    .login {
-        width: 400px;
-        margin: 0 auto;
+<style scoped>
+    .el-form-item{
+        text-align: center;
     }
 </style>

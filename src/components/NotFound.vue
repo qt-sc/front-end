@@ -1,8 +1,8 @@
 <template lang="html">
     <div class="NotFound">
         <div class="wrap">
-            <img class="lose" src="../assets/very_sorry.png" alt="对不起，你要找的页面不见了"/>
-            <el-button class="return" type="primary" @click="goHome">请重回主页</el-button>
+            <img class="lose" src="../assets/img/very_sorry.png" alt="对不起，你要找的页面不见了"/>
+            <el-button class="return" type="primary" @click="goHome">返回主页</el-button>
         </div>
     </div>
 </template>
@@ -11,7 +11,7 @@
     export default {
         methods:{
             goHome(){
-                this.$router.replace({path:'/'});
+                this.$router.replace({path:'/'})
             }
         }
     }
@@ -21,7 +21,6 @@
     .NotFound{
         display: flex;
         height: 100%;
-        background:#0A7189;
         color:#fff;
         padding: 1rem;
     }

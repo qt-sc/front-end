@@ -8,13 +8,13 @@ const instance = axios.create()
 const front_instance = axios.create()
 instance.defaults.headers.post['Content-Type'] = 'application/json'
 
-if(localStorage.getItem('jwt')){
-    /* localStorage.getItem('jwt')是带引号的字符串
-      Bearer token(通过Authorization头部字段发送到服务端便于验证)的格式：Bearer XXXXXXXXXX
-    */
-    // eslint-disable-next-line no-useless-escape
-    instance.defaults.headers.common['Authorization'] = "Bearer "+localStorage.getItem('jwt').replace(/(^\")|(\"$)/g,'')
-}
+// if(localStorage.getItem('jwt')){
+//     /* localStorage.getItem('jwt')是带引号的字符串
+//       Bearer token(通过Authorization头部字段发送到服务端便于验证)的格式：Bearer XXXXXXXXXX
+//     */
+//     // eslint-disable-next-line no-useless-escape
+//     instance.defaults.headers.common['Authorization'] = "Bearer "+localStorage.getItem('jwt').replace(/(^\")|(\"$)/g,'')
+// }
 
 // axios拦截请求
 axios.interceptors.request.use = instance.interceptors.request.use = front_instance.interceptors.request.use
