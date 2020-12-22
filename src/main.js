@@ -7,7 +7,7 @@ Vue.config.productionTip = false
 
 Vue.use(ElementUI)
 
-import router from './router'
+import router from './routes/routes'
 import store from './store/index'
 
 new Vue({

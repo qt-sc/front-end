@@ -11,7 +11,7 @@
 </template>
 
 <script>
-    import api from '../../api'
+    import api from '../api'
     export default {
         data(){
             return {
@@ -22,16 +22,15 @@
         created(){
             // 在这里调用获取一篇文章的api
             api.getOneArticleNoAuth({id:this.$route.params.id})
-                .then(({data:{code,oneArticle}})=>{
-                    if(code==200){
-                        setTimeout(()=>{
-                            this.loading2 = false
-                            this.oneArticle = oneArticle
-                        },200)
-                    }
-
-                })
-
+                // .then(({data:{code,oneArticle}})=>{
+                //     if(code==200){
+                //         setTimeout(()=>{
+                //             this.loading2 = false
+                //             this.oneArticle = oneArticle
+                //         },200)
+                //     }
+                //
+                // })
         }
     }
 </script>

@@ -46,7 +46,15 @@ export default {
     },
     // 根据postID获取一篇文章(不带权限)
     getOneArticleNoAuth(params){
-        return front_instance.post('/api/article/noAuth',params);
+        return front_instance.post('/',params);
+    },
+    //获取文章列表{带分页获取}
+    getArticleList(data){
+        return instance.post('/',data);
+    },
+    // 不带分页获取文章
+    getArticleLists(params){
+        return front_instance.post('/',params);
     },
     showProgress({commit},number){
         commit('SHOW_PROGRESS',number)

@@ -1,6 +1,6 @@
 <template lang="html">
     <div class="home_wrapper"  v-loading="loading2"  element-loading-text="加载中">
-        <article v-for='item in items'>
+        <article v-for='item in items' :key="item">
             <header>
                 <div>
                     <router-link :to="{path:`/article/${item._id}`}" class="home_title">
@@ -21,9 +21,9 @@
 </template>
 
 <script>
-    import vhead from './vheader'
-    import api from '../../api'
-    import vfoot from './vfooter'
+    import api from '../api'
+    // import vhead from './vheader'
+    // import vfoot from './vfooter'
     export default {
         name:"Home",
         data(){
@@ -39,8 +39,8 @@
             }
         },
         components:{
-            vhead,
-            vfoot
+            // vhead,
+            // vfoot
         },
         methods:{
             loadMore(){
@@ -51,22 +51,21 @@
             },
             loadData(page,limit){
                 api.getArticleLists({page,limit})
-                    .then(({data:{code,articleLists,hasNext,hasPrev}})=>{
-                        if(code==200){
-                            setTimeout(()=>{
-                                this.items = this.items.concat(articleLists)
-                                this.loading2=false;
-                                if(hasNext){
-                                    this.loadMoreShow = true
-                                    this.loadMoreFlag =  false
-                                    this.loadMoreText = '加载更多'
-                                }else{
-                                    this.loadMoreShow = false
-                                }
-                            },200)
-                        }
-
-                    })
+                    // .then(({data:{code,articleLists,hasNext,hasPrev}})=>{
+                    //     if(code==200){
+                    //         setTimeout(()=>{
+                    //             this.items = this.items.concat(articleLists)
+                    //             this.loading2=false;
+                    //             if(hasNext){
+                    //                 this.loadMoreShow = true
+                    //                 this.loadMoreFlag =  false
+                    //                 this.loadMoreText = '加载更多'
+                    //             }else{
+                    //                 this.loadMoreShow = false
+                    //             }
+                    //         },200)
+                    //     }
+                    // })
             }
         },
         mounted(){
@@ -120,8 +119,8 @@
     }
     .loadMore {
         margin:4rem 0 0 0;
-        display: flex;
-        display: webkit-flex;
+        /*display: flex;*/
+        /*display: webkit-flex;*/
     }
     .loadMore button {
         cursor: pointer;

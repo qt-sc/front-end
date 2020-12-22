@@ -1,5 +1,5 @@
 import api from '../api'
-import router from '../router'
+import router from '../routes/routes'
 import MsgAlert from './MsgAlert'
 export default {
     UserRegister({commit},data){

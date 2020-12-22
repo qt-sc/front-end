@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 //组件模块
-import Login from './components/Login'
-import About from './components/About'
-import Front from './components/Front'
+import Login from '../components/Login'
+import About from '../components/About'
+import Home from '../components/Home'
 import NotFound from "@/components/NotFound";
 
 Vue.use(Router)
@@ -13,8 +13,8 @@ export default new Router({
     routes: [
         {
             path: '/',
-            name: 'Login',
-            component: Login
+            name: 'Home',
+            component: Home
         },
         {
             path: '/login',
@@ -29,7 +29,7 @@ export default new Router({
         {
             path: '/test',
             name: 'test',
-            component: Front
+            component: Home
         },
         {
             path: '*',
