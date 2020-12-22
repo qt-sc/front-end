@@ -44,6 +44,10 @@ export default {
     localLogin(data){
         return axios.post('/api/user/login/pass',data)
     },
+    // 根据postID获取一篇文章(不带权限)
+    getOneArticleNoAuth(params){
+        return front_instance.post('/api/article/noAuth',params);
+    },
     showProgress({commit},number){
         commit('SHOW_PROGRESS',number)
     }

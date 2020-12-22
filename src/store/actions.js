@@ -1,5 +1,5 @@
 import api from '../api'
-// import router from '../router'
+import router from '../router'
 import MsgAlert from './MsgAlert'
 export default {
     UserRegister({commit},data){
@@ -24,5 +24,19 @@ export default {
                 // 一般服务器连接不上这里就会报网络错误
                 MsgAlert(error.toString())
             })
+    },
+
+    UserLogout({commit}){
+        commit('USER_SIGNOUT');
+        router.push({path:'/login'});
+    },
+
+    showProgress({commit},number){
+        commit('SHOW_PROGRESS',number)
+    },
+
+    changeHeadLine({commit},headline){
+        commit('HEAD_LINE',headline)
     }
+
 }
