@@ -34,7 +34,7 @@ router.beforeEach(({meta,path},from,next)=>{
     }
     // 如果登录了以后再访问reg和login则路由到Home
     if(isLogin&&(path=='/login'||path=='/reg')){
-        return next({path:'/admin'});
+        return next({path:'/home'});
     }
     // 未登录的情况下访问reg则直接路由
     next();
