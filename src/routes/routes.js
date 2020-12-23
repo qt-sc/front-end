@@ -7,6 +7,7 @@ import Login from '@/components/Login'
 import Front from '@/components/Front'
 import About from '@/components/About'
 import Home from '@/components/Home'
+import Article from "@/components/Article";
 // import Tags from "@/components/Tags";
 import NotFound from "@/components/NotFound";
 
@@ -23,7 +24,7 @@ export default new Router({
                 {path:'home',component:Home,  meta:{auth:false}},
                 {path:'about',component:About,  meta:{auth:false}},
                 // {path:'tags',component:Tags,  meta:{auth:false}},
-                // {path:'article/:id',component:Article, meta:{auth:false,scrollToTop: true}},
+                {path:'article/:id',component:Article, meta:{auth:false,scrollToTop: true}},
             ]
         },
         {

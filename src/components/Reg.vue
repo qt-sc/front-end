@@ -28,9 +28,9 @@
             return {
                 logining: false,
                 user: {
-                    name: 'test',
-                    email: 'fanghc@google.com',
-                    password:'123'
+                    name: '',
+                    email: '',
+                    password:''
                 },
                 rules: {
                     name: [

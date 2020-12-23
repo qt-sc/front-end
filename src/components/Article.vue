@@ -2,11 +2,13 @@
     <article v-loading="loading2"  element-loading-text="加载中" class="article_wrap article">
         <header>
             <div class="home_title">{{oneArticle.title}}</div>
-            <div>
-                <p class="home_creatAt">{{oneArticle.created_at}}</p>
-            </div>
         </header>
-        <section v-html="oneArticle.contentToMark" class="home_main"></section>
+        <section v-html="oneArticle.content" class="home_main"></section>
+        <footer>
+            <div>
+                <p class="home_creatAt">like: {{oneArticle.likeNum}}</p>
+            </div>
+        </footer>
     </article>
 </template>
 
@@ -21,16 +23,11 @@
         },
         created(){
             // 在这里调用获取一篇文章的api
-            api.getOneArticleNoAuth({id:this.$route.params.id})
-                // .then(({data:{code,oneArticle}})=>{
-                //     if(code==200){
-                //         setTimeout(()=>{
-                //             this.loading2 = false
-                //             this.oneArticle = oneArticle
-                //         },200)
-                //     }
-                //
-                // })
+            api.getArticleLists()
+                .then(res=>{
+                    this.oneArticle = res.data[this.$route.params.id]
+                    this.loading2 = false
+                })
         }
     }
 </script>

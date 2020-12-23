@@ -4,14 +4,14 @@
             <h2>服务计算</h2>
             <p>简单 web 服务与客户端开发实战</p>
             <p>
-                <a href="" target="_blank">前端</a>&nbsp;&nbsp;
-                <a href="">后端</a>
-                <a href="">报告</a>
+                <a href="https://github.com/qt-sc/front-end" target="_blank">前端</a>&nbsp;&nbsp;
+                <a href="https://github.com/qt-sc/back-end">后端</a>
+                <a href="https://github.com/qt-sc/api-doc">报告</a>
             </p>
             <h2>关于网站</h2>
-            <p>本站服务端采用 express + mongoDB 搭建, 客户端采用Vue2全家桶</p>
-            <p>主要功能包括: 后台登录, 注册, 管理, 标签, 文章, 支持markdown语法编辑, 支持代码高亮</p>
-            <p>主要技术栈: express, mongoolass, vue2, vue2-router, vuex, axios, es6, element ui</p>
+            <p>本站服务端采用 go + MySql + Redis 搭建, 客户端采用 Vue 全家桶</p>
+            <p>主要功能包括: 登录, 注册, 查看文章</p>
+            <p>主要技术栈: go, mysql, redis, vue, vue-router, vuex, axios, es6, element-ui</p>
         </div>
     </div>
 </template>

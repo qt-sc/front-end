@@ -45,8 +45,14 @@ a{
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     background-color: #8cc5ff;
-    margin: 250px auto;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     width: 400px;
+    height: 400PX;
     padding: 50px;
     border-radius: 5%;
     opacity: 1;

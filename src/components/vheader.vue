@@ -4,7 +4,7 @@
         <nav  class="header-bg">
             <ul>
                 <li><router-link to="/home">主页</router-link></li>
-                <li><router-link to="/tags">标签</router-link></li>
+                <li><router-link to="/login">登录</router-link></li>
                 <li><router-link to="/about">关于</router-link></li>
             </ul>
         </nav>

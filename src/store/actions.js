@@ -4,15 +4,18 @@ import MsgAlert from './MsgAlert'
 export default {
     UserLogin({commit},data){
         api.localLogin(data)
-            .then(({data})=>{
-                if(data.code==200){
-                    // 找到用户
-                    commit('USER_SIGNIN',data.token)
-                    router.replace({path:'/'})
-                }else{
-                    // 没找到用户或者密码不对
-                    MsgAlert(data.message)
-                }
+            .then(res=>{
+                console.log("commit: ", commit)
+                console.log("res: ", res.TOK)
+                router.push({path:'/home'})
+                // if(data.code==200){
+                //     // 找到用户
+                //     commit('USER_SIGNIN',data.token)
+                //     router.replace({path:'/'})
+                // }else{
+                //     // 没找到用户或者密码不对
+                //     MsgAlert(data.message)
+                // }
             })
             .catch(error=>{
                 // 一般服务器连接不上这里就会报网络错误

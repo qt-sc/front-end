@@ -2,11 +2,11 @@
     <div class="container">
         <el-form class="login_form" :model="user" :rules="rules2" ref="user" label-position="left" label-width="0px" v-loading="loadingflag" element-loading-text="页面跳转中">
             <h3 class="title">欢迎登录</h3>
-            <el-form-item prop="account">
-                <el-input type="text" v-model="user.account" auto-complete="off" placeholder="账号" @change="changeFlag"></el-input>
+            <el-form-item prop="name">
+                <el-input type="text" v-model="user.name" auto-complete="off" placeholder="用户名" @change="changeFlag"></el-input>
             </el-form-item>
-            <el-form-item prop="checkPass">
-                <el-input type="password" v-model="user.checkPass" auto-complete="off" placeholder="密码"></el-input>
+            <el-form-item prop="password">
+                <el-input type="password" v-model="user.password" auto-complete="off" placeholder="密码"></el-input>
             </el-form-item>
             <el-form-item style="width:100%;">
                 <el-button class="login_button" type="primary" style="width:40%;" @click="handleSubmit">登录</el-button>
@@ -24,14 +24,14 @@
             return {
                 logining: false,
                 user: {
-                    account: '',
-                    checkPass: '',
+                    name: '',
+                    password: '',
                 },
                 rules2: {
-                    account: [
-                        { required:true,message:"请输入你的账号", trigger: 'blur' },
+                    name: [
+                        { required:true,message:"请输入用户名", trigger: 'blur' },
                     ],
-                    checkPass: [
+                    password: [
                         { required: true, message: '请输入密码', trigger: 'blur' },
                     ],
                 },

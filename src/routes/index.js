@@ -28,6 +28,7 @@ router.beforeEach(({meta,path},from,next)=>{
         访问不需要权限的设置meta:false
         注册也要设置成meta:false
     */
+    console.log(auth, isLogin, path)
     if(auth&&!isLogin&&path!=='/login'){
         return next({path:'/login'})
     }

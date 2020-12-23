@@ -1,19 +1,19 @@
 <template lang="html">
     <div class="home_wrapper"  v-loading="loading2"  element-loading-text="加载中">
-        <article v-for='item in items' :key="item">
+        <article v-for='item in items' :key="item.id">
             <header>
                 <div>
-                    <router-link :to="{path:`/article/${item._id}`}" class="home_title">
+                    <router-link :to="{path:`/article/${item.id}`}" class="home_title">
                         {{item.title}}
                     </router-link>
                 </div>
                 <div>
-                    <p class="home_creatAt" >{{item.created_at}}</p>
+                    <p class="home_creatAt" >like: {{item.likeNum}}</p>
                 </div>
             </header>
-            <section v-html="item.contentToMark" class="home_main"></section>
+<!--            <section v-html="item.content" class="home_main"></section>-->
             <footer>
-                <router-link class="home_readMore" :to="{path:`/article/${item._id}`}">阅读全文>></router-link>
+                <router-link class="home_readMore" :to="{path:`/article/${item.id}`}">阅读全文>></router-link>
             </footer>
         </article>
         <footer class='loadMore' v-if='loadMoreShow'><el-button type="primary" :loading="loadMoreFlag" @click='loadMore'>{{loadMoreText}}</el-button></footer>
@@ -22,8 +22,6 @@
 
 <script>
     import api from '../api'
-    // import vhead from './vheader'
-    // import vfoot from './vfooter'
     export default {
         name:"Home",
         data(){
@@ -34,44 +32,29 @@
                 loadMoreFlag:false,
                 loadMoreText:'加载更多',
                 loadMoreShow:false,
-                page:1,
-                limit:10
             }
         },
         components:{
-            // vhead,
-            // vfoot
         },
         methods:{
             loadMore(){
                 this.loadMoreText = '加载中'
                 this.loadMoreFlag = true
-                this.page++
-                this.loadData(this.page,this.limit)
+                this.loadData()
             },
-            loadData(page,limit){
-                api.getArticleLists({page,limit})
-                    // .then(({data:{code,articleLists,hasNext,hasPrev}})=>{
-                    //     if(code==200){
-                    //         setTimeout(()=>{
-                    //             this.items = this.items.concat(articleLists)
-                    //             this.loading2=false;
-                    //             if(hasNext){
-                    //                 this.loadMoreShow = true
-                    //                 this.loadMoreFlag =  false
-                    //                 this.loadMoreText = '加载更多'
-                    //             }else{
-                    //                 this.loadMoreShow = false
-                    //             }
-                    //         },200)
-                    //     }
-                    // })
+            loadData(){
+                api.getArticleLists()
+                    .then(res=>{
+                        this.items = this.items.concat(res.data)
+                        this.loading2=false
+                        this.loadMoreShow = false
+                    })
             }
         },
         mounted(){
             // 封装成一个方法，与分页获取文章列表类似
             this.$store.dispatch('changeHeadLine','主页')
-            this.loadData(1,this.limit)
+            this.loadData()
         }
     }
 </script>
