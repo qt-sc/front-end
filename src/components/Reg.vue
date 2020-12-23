@@ -1,79 +1,16 @@
-<!--//register组件-->
-
-<!--<template>-->
-<!--    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="80px" class="demo-ruleForm">-->
-<!--        <el-form-item label="用户名" prop="name"><el-input v-model="ruleForm.name"></el-input></el-form-item>-->
-<!--        <el-form-item label="邮箱" prop="email"><el-input v-model="ruleForm.email"></el-input></el-form-item>-->
-<!--        <el-form-item label="密码" prop="password"><el-input type="password" v-model="ruleForm.password" auto-complete="off"></el-input></el-form-item>-->
-<!--        <el-form-item>-->
-<!--            <el-button type="primary" @click="submitForm('ruleForm')">注册</el-button>-->
-<!--            <el-button @click="resetForm('ruleForm')">重置</el-button>-->
-<!--        </el-form-item>-->
-<!--    </el-form>-->
-<!--</template>-->
-
-<!--<script>-->
-<!--    export default {-->
-<!--        data() {-->
-<!--            var validateEmail = (rule, value, callback) => {-->
-<!--                if (value === '') {-->
-<!--                    callback(new Error('请输入您的邮箱'));-->
-<!--                } else {-->
-<!--                    let patter = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;-->
-<!--                    if (!patter.test(this.ruleForm.email)) {-->
-<!--                        callback(new Error('请输入正确的邮箱格式'));-->
-<!--                    }-->
-<!--                    callback();-->
-<!--                }-->
-<!--            };-->
-
-<!--            return {-->
-<!--                activeName: 'register',-->
-<!--                ruleForm: {-->
-<!--                    name: '',-->
-<!--                    email: '',-->
-<!--                    password: ''-->
-<!--                },-->
-<!--                rules: {-->
-<!--                    name: [{ required: true, message: '请输入您的名称', trigger: 'blur' }],-->
-<!--                    email: [{ required: true, validator: validateEmail, trigger: 'blur' }],-->
-<!--                    password: [{ required: true, message: '请输入账号密码', trigger: 'blur' }]-->
-<!--                }-->
-<!--            };-->
-<!--        },-->
-
-<!--        methods: {-->
-<!--            submitForm(formName) {-->
-<!--                this.$refs[formName].validate(valid => {-->
-<!--                    if (valid) {-->
-<!--                        this.$store.dispatch('UserRegister', this.ruleForm)-->
-<!--                    } else {-->
-<!--                        console.log('error submit!!');-->
-<!--                        return false;-->
-<!--                    }-->
-<!--                });-->
-<!--            },-->
-
-<!--            resetForm(formName) {-->
-<!--                this.$refs[formName].resetFields();-->
-<!--            }-->
-<!--        }-->
-<!--    };-->
-<!--</script>-->
-
 
 <template>
     <div class="container" >
-        <el-form class="reg_form" :model="user" :rules="rules2" ref="user" label-position="left" label-width="0px" >
+        <el-form class="reg_form" :model="user" :rules="rules" ref="user" label-position="left" label-width="0px" >
             <h3 class="title">系统注册</h3>
-            <el-form-item prop="account">
-                <el-input type="text" v-model="user.account" auto-complete="off" placeholder="账号"></el-input>
+            <el-form-item prop="name">
+                <el-input type="text" v-model="user.name" auto-complete="off" placeholder="用户名"></el-input>
             </el-form-item>
-            <el-form-item prop="checkPass">
-                <el-input type="password" v-model="user.checkPass" auto-complete="off" placeholder="密码"></el-input>
+            <el-form-item prop="email">
+                <el-input type="text" v-model="user.email" auto-complete="off" placeholder="邮箱"></el-input>
             </el-form-item>
-            <el-form-item prop="checkRepeatPass">
-                <el-input type="password" v-model="user.checkRepeatPass" auto-complete="off" placeholder="重复输入密码"></el-input>
+            <el-form-item prop="password">
+                <el-input type="password" v-model="user.password" auto-complete="off" placeholder="密码"></el-input>
             </el-form-item>
             <el-form-item style="width:100%;">
                 <el-button class='reg_button' type="primary" style="width:40%;" @click="handleSubmit" >注册</el-button>
@@ -84,48 +21,38 @@
 </template>
 
 <script>
-    // import {mapActions} from 'vuex'
+    import api from "@/api";
     export default {
         data() {
-            //自定义验证函数
-            var checkRepeatPass = (rule,value,callback)=>{
-                if(value==''){
-                    return callback(new Error('请再次输入密码'))
-                }else if(value!==this.user.checkPass){
-                    return callback(new Error('两次输入的密码不一样'))
-                }else{
-                    callback();
-                }
-            }
             // 返回的数据
             return {
                 logining: false,
                 user: {
-                    account: '',
-                    checkPass: '',
-                    checkRepeatPass:''
+                    name: 'test',
+                    email: 'fanghc@google.com',
+                    password:'123'
                 },
-                rules2: {
-                    account: [
-                        { required:true,message:'账号不能为空' ,trigger: 'blur' },
+                rules: {
+                    name: [
+                        { required:true,message:'请输入您的账号' ,trigger: 'blur' },
                     ],
-                    checkPass: [
-                        { required: true, message: '请输入密码', trigger: 'blur' },
+                    email: [
+                        { required: true, message: '请输入您的邮箱', trigger: 'blur' },
                     ],
-                    checkRepeatPass:[
-                        {validator:checkRepeatPass,trigger:'blur'}
+                    password:[
+                        { required: true, message: '请输入您的密码', trigger: 'blur' }
                     ]
                 }
             };
         },
         methods: {
             handleSubmit() {
-                // 必须是二次验证
                 this.$refs.user.validate((valid) => {
                     if (valid) {
-                        this.$store.dispatch('UserReg',this.user);
+                        api.localReg(this.user).then(()=>{
+                            this.$router.push({path:'/login'})
+                        })
                     } else {
-                        // 前端验证未通过
                         console.log('error submit!!');
                         return false;
                     }

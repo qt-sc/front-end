@@ -38,7 +38,7 @@ front_instance.interceptors.response.use(response=>{
 export default {
     // 注册
     localReg(data){
-        return axios.post('/api/user/register',data)
+        return axios.post('/users/signup',data)
     },
     // 登录
     localLogin(data){

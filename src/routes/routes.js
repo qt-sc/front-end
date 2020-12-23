@@ -2,11 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 //组件模块
-import Reg from '../components/Reg'
-import Login from '../components/Login'
-import Front from '../components/Front'
-import About from '../components/About'
-import Home from '../components/Home'
+import Reg from '@/components/Reg'
+import Login from '@/components/Login'
+import Front from '@/components/Front'
+import About from '@/components/About'
+import Home from '@/components/Home'
 // import Tags from "@/components/Tags";
 import NotFound from "@/components/NotFound";
 
